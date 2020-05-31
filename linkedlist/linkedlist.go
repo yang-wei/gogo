@@ -1,53 +1,55 @@
+package linkedlist
+
 type Node struct {
     Val int
     Next *Node
 }
 
 type MyLinkedList struct {
-    node *Node
+    Node *Node
 }
 
 
 /** Initialize your data structure here. */
 func Constructor() MyLinkedList {
     return MyLinkedList{
-        node: nil,
+        Node: nil,
     }
 }
 
 
-/** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+/** Get the value of the index-th Node in the linked list. If the index is invalid, return -1. */
 func (this *MyLinkedList) Get(index int) int {
-    node, n := this.node, 0
-    for node != nil {
+    Node, n := this.Node, 0
+    for Node != nil {
         if n == index {
-            return node.Val
+            return Node.Val
         }
-        node = node.Next
+        Node = Node.Next
     }
     return -1
 }
 
 
-/** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+/** Add a Node of value val before the first element of the linked list. After the insertion, the new Node will be the first Node of the linked list. */
 func (this *MyLinkedList) AddAtHead(val int)  {
-    this.node = &Node{val, this.node}
+    this.Node = &Node{val, this.Node}
 }
 
 
-/** Append a node of value val to the last element of the linked list. */
+/** Append a Node of value val to the last element of the linked list. */
 func (this *MyLinkedList) AddAtTail(val int)  {
-    if this.node == nil {
+    if this.Node == nil {
         this.AddAtHead(val)
     } else {
-        this.node.Next = &Node{val, nil}
+        this.Node.Next = &Node{val, nil}
     }
 }
 
 
-/** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+/** Add a Node of value val before the index-th Node in the linked list. If index equals to the length of linked list, the Node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
 func (this *MyLinkedList) AddAtIndex(index int, val int)  {
-    dh, n := &Node{0, this.node}, 0
+    dh, n := &Node{0, this.Node}, 0
     for dh != nil {
         if n == index {
             nextTmp := dh.Next
@@ -59,9 +61,9 @@ func (this *MyLinkedList) AddAtIndex(index int, val int)  {
 }
 
 
-/** Delete the index-th node in the linked list, if the index is valid. */
+/** Delete the index-th Node in the linked list, if the index is valid. */
 func (this *MyLinkedList) DeleteAtIndex(index int)  {
-    dh, n := &Node{0, this.node}, 0
+    dh, n := &Node{0, this.Node}, 0
     for dh != nil {
         if n == index {
             if dh.Next != nil {
