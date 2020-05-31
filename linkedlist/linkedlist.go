@@ -1,5 +1,10 @@
 package linkedlist
 
+import (
+  "strings"
+  "strconv"
+)
+
 type Node struct {
 	Val  int
 	Next *Node
@@ -23,6 +28,7 @@ func (this *MyLinkedList) Get(index int) int {
 		if n == index {
 			return Node.Val
 		}
+    n++
 		Node = Node.Next
 	}
 	return -1
@@ -51,6 +57,7 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 			dh.Next = &Node{val, nextTmp}
 			return
 		}
+    n++
 		dh = dh.Next
 	}
 }
@@ -66,7 +73,17 @@ func (this *MyLinkedList) DeleteAtIndex(index int) {
 				dh.Next = nil
 			}
 		}
+    n++
 		dh = dh.Next
 	}
 
+}
+
+func (this *MyLinkedList) toString() string{
+  l, node := make([]string, 0), this.Node
+  for node != nil {
+    l = append(l, strconv.Itoa(node.Val)) 
+    node = node.Next
+  }
+  return strings.Join(l, "->")
 }
