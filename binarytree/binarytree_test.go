@@ -1,6 +1,7 @@
 package binarytree
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -11,6 +12,12 @@ func TestSerialize(t *testing.T) {
 		Val: 1,
 		Left: &TreeNode{
 			Val: 2,
+			Right: &TreeNode{
+				Val: 6,
+			},
+		},
+		Right: &TreeNode{
+			Val: 3,
 			Left: &TreeNode{
 				Val: 4,
 			},
@@ -18,15 +25,13 @@ func TestSerialize(t *testing.T) {
 				Val: 5,
 			},
 		},
-		Right: &TreeNode{
-			Val: 3,
-			Right: &TreeNode{
-				Val: 7,
-			},
-		},
 	}
 
-	if a, e := c.serialize(node), "1,2,3,4,5,nil,7"; a != e {
+	if a, e := c.serialize(node), "1,2,X,6,X,X,3,4,X,X,5,X,X"; a != e {
+		t.Fatalf("Expected %v but got %v", e, a)
+	}
+
+	if a, e := c.deserialize(c.serialize(node)), node; !reflect.DeepEqual(a, e) {
 		t.Fatalf("Expected %v but got %v", e, a)
 	}
 }
