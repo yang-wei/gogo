@@ -26,4 +26,7 @@ func TestSerialize(t *testing.T) {
 		},
 	}
 
+	if a, e := c.serialize(node), "1,2,3,4,5,nil,7"; a != e {
+		t.Fatalf("Expected %v but got %v", e, a)
+	}
 }
