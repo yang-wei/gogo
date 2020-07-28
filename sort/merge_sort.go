@@ -9,7 +9,17 @@ func mergeSort(l []int) []int {
 
   res := make([]int, 0, len(l))
   i, j := 0, 0
-  for i < len(left) && j < len(right) {
+  for i < len(left) || j < len(right) {
+      if i == len(left) {
+          res = append(res, right[j:]...)
+          break
+      }
+
+      if j == len(right) {
+          res = append(res, left[i:]...)
+          break
+      }
+
       if left[i] < right[j] {
          res = append(res, left[i])
          i++
@@ -17,15 +27,6 @@ func mergeSort(l []int) []int {
          res = append(res, right[j])
          j++
       }
-  }
-
-  for i < len(left) {
-    res = append(res, left[i])
-    i++
-  }
-  for j < len(right) {
-    res = append(res, right[j])
-    j++
   }
   return res
 }

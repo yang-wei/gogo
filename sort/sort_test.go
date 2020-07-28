@@ -25,12 +25,7 @@ func sortTests() []tdt {
 			[]int{},
 			[]int{},
 		},
-		{
-			[]int{2, 1},
-			[]int{1, 2},
-		},
 	}
-
 }
 
 func TestInsertSort(t *testing.T) {
@@ -45,6 +40,7 @@ func TestInsertSort(t *testing.T) {
 
 }
 
+
 func TestMergeSort(t *testing.T) {
 
 	for _, tt := range sortTests() {
@@ -54,5 +50,4 @@ func TestMergeSort(t *testing.T) {
 			}
 		})
 	}
-
 }
