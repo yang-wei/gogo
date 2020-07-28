@@ -15,20 +15,6 @@ func NewMaxHeap(arr []int) *maxHeap {
 // i is 1-based i
 func (h *maxHeap) heapify(i int) {
 
-	heapSize := len(h.arr)
-	l, r := 2*i, 2*i+1
-
-	max := i
-	if l <= heapSize && h.arr[l-1] > h.arr[max-1] {
-		max = l
-	}
-	if r <= heapSize && h.arr[r-1] > h.arr[max-1] {
-		max = r
-	}
-	if max != i {
-		h.arr[max-1], h.arr[i-1] = h.arr[i-1], h.arr[max-1]
-		h.heapify(max)
-	}
 }
 
 func (h *maxHeap) buildMaxHeap() {
