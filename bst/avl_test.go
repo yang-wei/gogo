@@ -260,6 +260,216 @@ func TestInsert7(t *testing.T) {
 
 }
 
+func TestRemove1(t *testing.T) {
+	node := &AVLNode{
+		Val:    26,
+		Height: 1,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 0,
+		},
+	}
+	actual := remove(node, 29)
+	expected := &AVLNode{
+		Val:    26,
+		Height: 1,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+	}
+	assert(t, expected, actual)
+
+	actual = remove(node, 23)
+	expected = &AVLNode{
+		Val:    26,
+		Height: 0,
+	}
+	assert(t, expected, actual)
+
+	actual = remove(node, 26)
+	expected = nil
+	assert(t, expected, actual)
+}
+
+func TestRemove2(t *testing.T) {
+	node := &AVLNode{
+		Val:    26,
+		Height: 1,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 1,
+			Left: &AVLNode{
+				Val:    27,
+				Height: 0,
+			},
+		},
+	}
+	actual := remove(node, 29)
+	expected := &AVLNode{
+		Val:    26,
+		Height: 1,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    27,
+			Height: 0,
+		},
+	}
+	assert(t, expected, actual)
+}
+
+func TestRemove3(t *testing.T) {
+	node := &AVLNode{
+		Val:    26,
+		Height: 1,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 1,
+			Right: &AVLNode{
+				Val:    32,
+				Height: 0,
+			},
+		},
+	}
+	actual := remove(node, 29)
+	expected := &AVLNode{
+		Val:    26,
+		Height: 1,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    32,
+			Height: 0,
+		},
+	}
+	assert(t, expected, actual)
+}
+
+func TestRemove4(t *testing.T) {
+	node := &AVLNode{
+		Val:    26,
+		Height: 2,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 1,
+			Left: &AVLNode{
+				Val:    27,
+				Height: 0,
+			},
+			Right: &AVLNode{
+				Val:    32,
+				Height: 0,
+			},
+		},
+	}
+	actual := remove(node, 26)
+	expected := &AVLNode{
+		Val:    27,
+		Height: 2,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 0,
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 1,
+			Right: &AVLNode{
+				Val:    32,
+				Height: 0,
+			},
+		},
+	}
+	assert(t, expected, actual)
+}
+
+func TestRemove5(t *testing.T) {
+	node := &AVLNode{
+		Val:    26,
+		Height: 2,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 1,
+			Left: &AVLNode{
+				Val:    20,
+				Height: 0,
+			},
+			Right: &AVLNode{
+				Val:    24,
+				Height: 0,
+			},
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 0,
+		},
+	}
+	actual := remove(node, 26)
+	expected := &AVLNode{
+		Val:    24,
+		Height: 2,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 1,
+			Left: &AVLNode{
+				Val:    20,
+				Height: 0,
+			},
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 0,
+		},
+	}
+	assert(t, expected, actual)
+}
+
+func TestAscendingSort(t *testing.T) {
+	node := &AVLNode{
+		Val:    26,
+		Height: 2,
+		Left: &AVLNode{
+			Val:    23,
+			Height: 1,
+			Left: &AVLNode{
+				Val:    20,
+				Height: 0,
+			},
+			Right: &AVLNode{
+				Val:    24,
+				Height: 0,
+			},
+		},
+		Right: &AVLNode{
+			Val:    29,
+			Height: 0,
+		},
+	}
+	if e, a := []int{20, 23, 24, 26, 29}, ascendingSort(node); !reflect.DeepEqual(e, a) {
+		t.Fatalf("Expected %v but got %v", e, a)
+	}
+}
+
 func assert(t *testing.T, expected, actual *AVLNode) {
 	if e, a := expected, actual; !reflect.DeepEqual(e, a) {
 		t.Logf("Exepected %s", e.print())

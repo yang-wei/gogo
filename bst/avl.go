@@ -36,6 +36,60 @@ func insert(root *AVLNode, val int) *AVLNode {
 	return balance(root)
 }
 
+func remove(root *AVLNode, val int) *AVLNode {
+	if root == nil {
+		return root
+	}
+	if val > root.Val {
+		// on the right
+		root.Right = remove(root.Right, val)
+	} else if val < root.Val {
+		// on the left
+		root.Left = remove(root.Left, val)
+	} else {
+		// on the root
+		// #1 leave
+		if root.Left == nil && root.Right == nil {
+			return nil
+			// #2 has left child only
+		} else if root.Right == nil {
+			return root.Left
+			// #3 has right child only
+		} else if root.Left == nil {
+			return root.Right
+		} else {
+			// #4 root
+			if getHeight(root.Right) > getHeight(root.Left) {
+				// let smallest node on right side be the root
+				min := findMin(root.Right)
+				root.Val = min
+				root.Right = remove(root.Right, min)
+			} else {
+				// let largest node on left side be the root
+				max := findMax(root.Left)
+				root.Val = max
+				root.Left = remove(root.Left, max)
+			}
+		}
+	}
+	updateHeight(root)
+	return balance(root)
+}
+
+func findMin(root *AVLNode) int {
+	if root.Left == nil {
+		return root.Val
+	}
+	return findMin(root.Left)
+}
+
+func findMax(root *AVLNode) int {
+	if root.Right == nil {
+		return root.Val
+	}
+	return findMax(root.Right)
+}
+
 func balance(root *AVLNode) *AVLNode {
 	left, right := getHeight(root.Left), getHeight(root.Right)
 	if left-right > 1 {
@@ -94,6 +148,17 @@ func updateHeight(root *AVLNode) {
 	} else {
 		root.Height = r + 1
 	}
+}
+
+func ascendingSort(root *AVLNode) []int {
+	result := make([]int, 0)
+	if root == nil {
+		return result
+	}
+	result = append(result, ascendingSort(root.Left)...)
+	result = append(result, root.Val)
+	result = append(result, ascendingSort(root.Right)...)
+	return result
 }
 
 func height(node *AVLNode) int {
