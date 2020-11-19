@@ -62,3 +62,15 @@ func TestHeapSort(t *testing.T) {
 		})
 	}
 }
+
+func TestQuickSort(t *testing.T) {
+	for _, tt := range sortTests() {
+		t.Run(fmt.Sprintf("%v", tt.in), func(t *testing.T) {
+			if got, want := quickSort(tt.in), tt.out; !reflect.DeepEqual(want, got) {
+				t.Errorf("got %v ,want %v", got, want)
+			}
+		})
+	}
+}
+
+
